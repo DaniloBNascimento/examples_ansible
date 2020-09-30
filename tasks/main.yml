@@ -1,0 +1,23 @@
+---
+# tasks file for web-server
+
+- name: Install latest version Apache web server
+  yum:
+    name: httpd
+    state: latest
+
+- name: Start e Enable no service do Apache
+  service:
+    name: httpd
+    state: started
+    enabled: true
+
+- name: Copy file index.html for server
+  copy:
+    src: index.html
+    dest: /var/www/html/
+
+  notify:
+    - restart_httpd
+
+
